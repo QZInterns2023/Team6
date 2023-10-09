@@ -19,4 +19,5 @@ public class ApplicationConstants {
     public static final long LONG_TIMEOUT = 45;
     public static final String errorMessageForLengthCompanies = "Validation error: Name is longer than 250 characters";
     public static final String errorMessageForMandatoryFieldNameCompany = "The field Name is required.";
+
 }
