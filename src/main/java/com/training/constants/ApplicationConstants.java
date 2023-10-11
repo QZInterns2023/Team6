@@ -17,7 +17,7 @@ public class ApplicationConstants {
     public static final long SHORT_TIMEOUT = 5;
     public static final long MEDIUM_TIMEOUT = 20;
     public static final long LONG_TIMEOUT = 45;
-    public static final String errorMessageForLengthCompanies = "Validation error: Name is longer than 250 characters";
+    public static final String errorMessageForLengthCompanies = "Name is longer than 250 characters cannot POST https://api.cogmento.com/api/1/companies/ (400)";
     public static final String errorMessageForMandatoryFieldNameCompany = "The field Name is required.";
 
 }

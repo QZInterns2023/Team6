@@ -51,6 +51,7 @@ public class WebUtil {
 
     public void clearAndInputText(By locator, String sText) throws InterruptedException {
         WebElement ele = getWebElement(locator);
+        Thread.sleep(2000);
         ele.sendKeys(Keys.chord(Keys.CONTROL+"a",Keys.BACK_SPACE));
         Thread.sleep(2000);
         ele.sendKeys(sText);

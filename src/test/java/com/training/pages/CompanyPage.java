@@ -1,8 +1,9 @@
 package com.training.pages;
 
+import com.training.reporting.ExtentTestManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
+import com.training.constants.ApplicationConstants;
 import java.util.HashMap;
 
 public class CompanyPage extends BasePage {
@@ -10,61 +11,65 @@ public class CompanyPage extends BasePage {
         super(driver);
     }
 
-    public static final By createcompany = By.xpath("//button[@class='ui linkedin button']//i[@class='edit icon']/ancestor::button");
 
     public static final By txt = By.name("name");
-//    public static final delrec =
+    private static By txtName = By.name("name");
+    private static By txtWebsite = By.xpath("//input[@name='url']");
+    private static By txtPhoneNo = By.xpath("//input[@placeholder='Number']");
+    private static By txtEmail = By.xpath("//input[@placeholder='Email address']");
+    private static By txtDescription = By.xpath("//textarea[@name='description']");
+    private static By txtIndustry = By.xpath("//input[@name='industry']");
+    private static By txtNoOfEmployees = By.xpath("//input[@name='num_employees']");
 
-    public CompanyPage createcompany() {
+
+    public void navigateToCompany() {
+        selectEntity(EntityPanel.Companies.toString());
+    }
+    public CompanyPage clickOnCreateButton() {
         createButton();
+        scriptAction.waitUntilElementIsVisible(txtName,ApplicationConstants.MEDIUM_TIMEOUT,"Create Company page is not displayed");
         return this;
     }
 
-    public void EnterCompanyDetails(HashMap<String , String> companies) throws InterruptedException {
+    public void enterCompanyDetails(HashMap<String , String> objCompanyData) throws InterruptedException {
 
-        if (companies.containsKey("Name")) {
-            scriptAction.inputText(By.xpath("//input[@name='name'])[1]"),companies.get("Name"));
-
+        if (objCompanyData.containsKey("name")) {
+            scriptAction.inputText(txtName,objCompanyData.get("name"));
+        }
+        if (objCompanyData.containsKey("edit_name")) {
+            scriptAction.clearAndInputText(txtName,objCompanyData.get("edit_name"));
         }
 
-
-        if (companies.containsKey("website")) {
-
-            scriptAction.inputText(By.xpath("//input[@name=\"url\"]"),companies.get("website"));
-
+        if (objCompanyData.containsKey("website")) {
+            scriptAction.inputText(txtWebsite,objCompanyData.get("website"));
+        }
+        if(objCompanyData.containsKey("phone_no")){
+            scriptAction.inputText(txtPhoneNo,objCompanyData.get("phone_no"));
         }
 
-        if (companies.containsKey("phone no")) {
-
-            scriptAction.inputText(By.xpath("(//input[@name=\"value\"])[1]"),companies.get("phone no"));
-
-        }
-        if (companies.containsKey("email")) {
-
-            scriptAction.inputText(By.xpath("//input[@placeholder=\"Email address\"]"),companies.get("email"));
-
-        }
-//        if (companies.containsKey("Tags")) {
-//
-//           Tags();
-//
-//        }
-
-        if (companies.containsKey("description")) {
-
-            scriptAction.inputText(By.xpath("//textarea[@name='description']"),companies.get("description"));
-
+       // if (companies.containsKey())
+        if (objCompanyData.containsKey("email")) {
+            Thread.sleep(5000);
+            scriptAction.clearAndInputText(txtEmail,objCompanyData.get("email"));
+            Thread.sleep(5000);
         }
 
-        if (companies.containsKey("industry")) {
-
-            scriptAction.inputText(By.xpath("//input[@name=\"industry\"]"),companies.get("industry"));
-
+        if (objCompanyData.containsKey("description")) {
+            scriptAction.inputText(txtDescription,objCompanyData.get("description"));
         }
-        if (companies.containsKey("No.of Employees")) {
 
-            scriptAction.inputText(By.xpath("//input[@name=\"num_employees\"]"),companies.get("No.of Employees"));
+        if (objCompanyData.containsKey("industry")) {
+            scriptAction.inputText(txtIndustry,objCompanyData.get("industry"));
+        }
+        if (objCompanyData.containsKey("no_of_employees")) {
+            scriptAction.inputText(txtNoOfEmployees,objCompanyData.get("no_of_employees"));
+        }
 
+        if (objCompanyData.containsKey("source")){
+            selectItemFromDropdown("Source",objCompanyData.get("source"));
+        }
+        if (objCompanyData.containsKey("edit_source")) {
+            selectItemFromDropdown("Source",objCompanyData.get("edit_source"));
         }
 
     }
@@ -73,35 +78,29 @@ public class CompanyPage extends BasePage {
         return this;
     }
 
-    public CompanyPage savecompany() throws InterruptedException {
+    public CompanyPage createCompany(HashMap<String , String> objCompanyData) throws InterruptedException {
+        clickOnCreateButton();
+        enterCompanyDetails(objCompanyData);
+        clickOnSaveButton();
+        return this;
+    }
+
+
+    public CompanyPage clickOnSaveButton() throws InterruptedException {
         saveButton();
-
-        // scriptAction.waitTillClickableAndClick(By.name("Save"), ApplicationConstants.SHORT_TIMEOUT);
-
         return this;
     }
-//    public Companyflow verifyerrormsg(){
-//        errorMessage("The field Name is required");
-//        scriptAction.waitTillClickableAndClick(By.xpath("//span[@class='inline-error-msg"), ApplicationConstants.SHORT_TIMEOUT);
-//        return this;
-//    }
-//    public Companyflow home() throws InterruptedException {
-//        selectEntity("Companies");
-//        return this;
-//
-//    }
 
-    public CompanyPage verifycompany() throws Exception {
-        // checkRecordDisplayed(s);
-        return this;
+    public void deleteCompany(String sCompanyName) throws Exception {
+        deleteRecord(sCompanyName,"Delete");
+
     }
-    public void deleteCompany(HashMap<String,String> map) throws Exception {
-        selectEntity("Companies");
-        pageRefresh();
-        checkRecordDisplayed(map.get("Name"));
-        performTableOperation(map.get("Name"), "Delete");
-        performActionsOnPopUp("Delete");
-        pageRefresh();
-        checkRecordNotDisplayed(map.get("Name"));
+    public CompanyPage editcompany(HashMap<String,String>objCompanyData,String sCompanyName) throws Exception{
+        performTableOperation(sCompanyName,"edit");
+        scriptAction.waitTillClickableAndClick(By.id("Source"), ApplicationConstants.MEDIUM_TIMEOUT);
+        enterCompanyDetails(objCompanyData);
+        clickOnSaveButton();
+        return this;
+
     }
 }

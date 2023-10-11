@@ -18,7 +18,7 @@ import static com.training.testcases.BaseTest.configurationDetails;
 public class VerifyMandatoryFields extends BaseTest {
 
     @Test(description = "Login to application")
-    public void companycreate() throws Exception {
+    public void createcompany() throws Exception {
 
         //Map<String, String> testDetails = xlsFile.getExcelRowValuesIntoMapBasedOnKey("sampleSheet", TESTCASENAME);
 
@@ -29,7 +29,7 @@ public class VerifyMandatoryFields extends BaseTest {
         BasePage.EntityPanel.Companies.toString();
         loginPage.selectEntity(BasePage.EntityPanel.Companies.toString());
         CompanyPage companypage = new CompanyPage(getDriver());
-        companypage.createcompany();
+        //companypage.createcompany();
         HashMap<String, String> map = new HashMap<>();
         String s = CommonUtil.getRandomString("test", 5);
         //  map.put("Name",randomStringGenerator(8));
@@ -40,8 +40,8 @@ public class VerifyMandatoryFields extends BaseTest {
         map.put("description",s);
         map.put("industry",s);
         map.put("No.of Employees",s);
-        companypage.EnterCompanyDetails(map);
-        companypage.savecompany();
+        companypage.enterCompanyDetails(map);
+        //companypage.savecompany();
 
         companypage.errorMessage(ApplicationConstants.errorMessageForMandatoryFieldNameCompany);
     }

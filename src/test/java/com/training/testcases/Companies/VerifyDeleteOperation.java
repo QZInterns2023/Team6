@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class VerifyDeleteOperation extends BaseTest {
 
     @Test(description = "Login to application")
-    public void companydelete() throws Exception {
+    public void deletecompany() throws Exception {
 
         //Map<String, String> testDetails = xlsFile.getExcelRowValuesIntoMapBasedOnKey("sampleSheet", TESTCASENAME);
 
@@ -26,10 +26,9 @@ public class VerifyDeleteOperation extends BaseTest {
         CompanyPage companypage = new CompanyPage(getDriver());
         HashMap<String, String> map = new HashMap<>();
         //  String s = CommonUtil.getRandomString("test", 10);
-        map.put("Name","testJCiyfo");
-        //companyflow.EnterCompanyDetails(map);
-//        companyflow.savecompany();
-        companypage.deleteCompany(map);
-
+        map.put("Name"," testQYLipb");
+//        companypage.EnterCompanyDetails(map);
+        //companypage.deleteCompany(map);
     }
+
 }

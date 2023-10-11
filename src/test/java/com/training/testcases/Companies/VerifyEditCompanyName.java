@@ -1,27 +1,24 @@
 package com.training.testcases.Companies;
 
-import com.training.pages.BasePage;
 import com.training.pages.CompanyPage;
 import com.training.pages.LoginPage;
+import com.training.reporting.ExtentTestManager;
 import com.training.testcases.BaseTest;
 import com.training.utils.CommonUtil;
-import com.training.reporting.ExtentTestManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
+
 import java.util.HashMap;
 
-@Test
-public class VerifyAllFields extends BaseTest {
+import static com.training.support.BrowserFactory.getDriver;
+import static com.training.testcases.BaseTest.configurationDetails;
 
-
-    //    private static final String TESTCASENAME = "TC01";
-//
-//    Map<String, Map<String, String>> sampleTestData;
+public class VerifyEditCompanyName  extends BaseTest {
 
     @Test(description = "Login to application")
-    public void createcompany() throws Exception {
+    public void editCompanyName() throws Exception {
 
-         //Login to Application
+        //Login to Application
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.loginToApplication(configurationDetails.getUserName(), configurationDetails.getPassword());
         ExtentTestManager.getTest().pass("Logged in to application");
@@ -45,13 +42,24 @@ public class VerifyAllFields extends BaseTest {
         companypage.checkPageHeader(sCompanyName);
         ExtentTestManager.getTest().pass("Created Company." + sCompanyName);
 
-        ExtentTestManager.getTest().pass("verify company saved");
+        Thread.sleep(5000);
+        companypage.navigateToCompany();
+        String updatedCompanyName = "NewName" + sCompanyName;
+        map.put("edit_name", updatedCompanyName);
+        companypage.editcompany(map,sCompanyName);
+        companypage.checkPageHeader(updatedCompanyName);
 
-    }
+        companypage.navigateToCompany();
+        companypage.checkRecordDisplayed(updatedCompanyName);
+        ExtentTestManager.getTest().pass("Updated company is displayed in the list."+ updatedCompanyName);
+        companypage.checkRecordNotDisplayed(sCompanyName);
+        ExtentTestManager.getTest().pass("Old company is not displayed in the list."+ sCompanyName);
 
-    public String randomIntGenerator(int len) {
+
+}
+
+    private String randomIntGenerator(int len) {
+
         return RandomStringUtils.randomAlphanumeric(len);
     }
-}
-//
-//    }
+    }

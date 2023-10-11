@@ -31,6 +31,8 @@ public class BasePage {
     String accessDropDown = "//div[@class='ui fluid multiple selection dropdown']";
     String saveBtn = "//button[text()='Save']";
 
+    String viewFieldValue = "//div[@class='ui label' and text()='%s']/parent::div";
+
     //Left Pane or Page Navigation Method
     private String lnkLeftPaneEntityName = "//div[@id='main-nav']//span[text()='%s']";
 
@@ -51,7 +53,7 @@ public class BasePage {
     String searchValue = "//input[@name = 'value']";
     String searchButton = "//i[@class= 'search small icon']";
     //table actions//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='unhide icon']
-    String viewXpath = "";
+    String viewXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='unhide icon']";
     String editXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='edit icon']";
     String deleteXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='trash icon']";
 
@@ -384,6 +386,22 @@ public class BasePage {
         }
         //Click on searchButton
         scriptAction.clickElement(By.xpath(searchButton));
+    }
+
+    public String getFieldValueFromView(String sFieldLabelName){
+        String spanFieldValue =String.format(viewFieldValue,sFieldLabelName);
+        scriptAction.waitUntilElementIsVisible(By.xpath(spanFieldValue),ApplicationConstants.MEDIUM_TIMEOUT);
+        String sValue = scriptAction.getText(By.xpath(spanFieldValue));
+        System.out.println(sValue);
+//        System.out.println(scriptAction.getText(By.xpath("//div[@class='ui label' and text()='Name']/parent::div")));
+//        System.out.println(scriptAction.getText(By.xpath("//div[@class='ui label' and text()='Description']/parent::div")));
+//        System.out.println(scriptAction.getText(By.xpath("//div[@class='ui label' and text()='Source']/parent::div")));
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return sValue;
     }
 }
 
