@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class VerifyBoundaryValue extends BaseTest {
     @Test(description = "Login to application")
-    public void createcompany() throws Exception {
+    public void companyboundaryValue() throws Exception {
 
         //Map<String, String> testDetails = xlsFile.getExcelRowValuesIntoMapBasedOnKey("sampleSheet", TESTCASENAME);
 
@@ -21,18 +21,20 @@ public class VerifyBoundaryValue extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.loginToApplication(configurationDetails.getUserName(), configurationDetails.getPassword());
         ExtentTestManager.getTest().pass("Logged in to application");
-        BasePage.EntityPanel.Companies.toString();
+        //BasePage.EntityPanel.Companies.toString();
         loginPage.selectEntity(BasePage.EntityPanel.Companies.toString());
         CompanyPage companypage = new CompanyPage(getDriver());
         //companypage.createcompany();
         ExtentTestManager.getTest().pass("Click on create Company");
         HashMap<String, String> map = new HashMap<>();
-        String s = CommonUtil.getRandomString("test", 251);
-        map.put("Name", s);
-        companypage.enterCompanyDetails(map);
+        String sCompanyData = CommonUtil.getRandomString("test", 400);
+        map.put("name", sCompanyData);
+       // companypage.createCompany(map);
+        ExtentTestManager.getTest().pass("Entered company details");
         ExtentTestManager.getTest().pass("Assign Company Data");
-        //companypage.savecompany();
         ExtentTestManager.getTest().pass("Save Company");
+        companypage.createCompany(map);
+        //Thread.sleep(2000);
         companypage.errorMessagesBoundary(ApplicationConstants.errorMessageForLengthCompanies);
     }
 }

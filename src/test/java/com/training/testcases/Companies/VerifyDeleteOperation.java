@@ -21,14 +21,22 @@ public class VerifyDeleteOperation extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.loginToApplication(configurationDetails.getUserName(), configurationDetails.getPassword());
         ExtentTestManager.getTest().pass("Logged in to application");
-        BasePage.EntityPanel.Companies.toString();
+//        BasePage.EntityPanel.Companies.toString();
         loginPage.selectEntity(BasePage.EntityPanel.Companies.toString());
         CompanyPage companypage = new CompanyPage(getDriver());
-        HashMap<String, String> map = new HashMap<>();
-        //  String s = CommonUtil.getRandomString("test", 10);
-        map.put("Name"," testQYLipb");
-//        companypage.EnterCompanyDetails(map);
-        //companypage.deleteCompany(map);
+        String sCompanyName = CommonUtil.getRandomString("test", 5);
+        HashMap<String, String> sCompanydata = new HashMap<>();
+        sCompanydata.put("name",sCompanyName);
+        sCompanydata.put("website",sCompanyName);
+        sCompanydata.put("phone_no",sCompanyName);
+        sCompanydata.put("email",sCompanyName);
+        sCompanydata.put("description",sCompanyName);
+        sCompanydata.put("industry",sCompanyName);
+        sCompanydata.put("no_of_employees",sCompanyName);
+        companypage.createCompany(sCompanydata);
+        companypage.selectEntity("Companies");
+        companypage.checkRecordDisplayed(sCompanyName);
+        companypage.deletecompany(sCompanydata);
     }
 
 }

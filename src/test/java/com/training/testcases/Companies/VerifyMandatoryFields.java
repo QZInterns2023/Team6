@@ -18,7 +18,7 @@ import static com.training.testcases.BaseTest.configurationDetails;
 public class VerifyMandatoryFields extends BaseTest {
 
     @Test(description = "Login to application")
-    public void createcompany() throws Exception {
+    public void verifyCompanyMandatoryFields() throws Exception {
 
         //Map<String, String> testDetails = xlsFile.getExcelRowValuesIntoMapBasedOnKey("sampleSheet", TESTCASENAME);
 
@@ -29,20 +29,21 @@ public class VerifyMandatoryFields extends BaseTest {
         BasePage.EntityPanel.Companies.toString();
         loginPage.selectEntity(BasePage.EntityPanel.Companies.toString());
         CompanyPage companypage = new CompanyPage(getDriver());
-        //companypage.createcompany();
-        HashMap<String, String> map = new HashMap<>();
-        String s = CommonUtil.getRandomString("test", 5);
+        HashMap<String, String> companyData = new HashMap<>();
+        String sCompanydetails = CommonUtil.getRandomString("test", 5);
         //  map.put("Name",randomStringGenerator(8));
-        map.put("Website","www." + s + ".com");
-        map.put("phone number",randomIntGenerator(10));
-        map.put("email",s+".com");
-        map.put("Tags","test_tag");
-        map.put("description",s);
-        map.put("industry",s);
-        map.put("No.of Employees",s);
-        companypage.enterCompanyDetails(map);
-        //companypage.savecompany();
-
+        companyData.put("Website","www." + sCompanydetails  + ".com");
+        companyData.put("phone number",randomIntGenerator(10));
+        companyData.put("email",sCompanydetails +".com");
+        companyData.put("Tags","test_tag");
+        companyData.put("description",sCompanydetails );
+        companyData.put("industry",sCompanydetails );
+        companyData.put("No.of Employees",sCompanydetails );
+        companypage.createCompany(companyData);
+        ExtentTestManager.getTest().pass("Navigate to company home page");
+        ExtentTestManager.getTest().pass("Click on new company page");
+        ExtentTestManager.getTest().pass("Entered company details");
+        ExtentTestManager.getTest().pass("Created Company." + sCompanydetails);
         companypage.errorMessage(ApplicationConstants.errorMessageForMandatoryFieldNameCompany);
     }
     //    public String randomStringGenerator(int length){

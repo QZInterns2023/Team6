@@ -42,9 +42,10 @@ public class VerifyAllFields extends BaseTest {
         map.put("industry", "IT");
         map.put("no_of_employees", randomIntGenerator(1));
         companypage.createCompany(map);
-        companypage.checkPageHeader(sCompanyName);
+        ExtentTestManager.getTest().pass("Click on new company page");
+        ExtentTestManager.getTest().pass("Entered company details");
         ExtentTestManager.getTest().pass("Created Company." + sCompanyName);
-
+        companypage.checkPageHeader(sCompanyName);
         ExtentTestManager.getTest().pass("verify company saved");
 
     }

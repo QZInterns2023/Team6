@@ -68,6 +68,7 @@ public class WebUtil {
     }
 
     public String getText(By locator) {
+
         return getWebElement(locator).getText();
     }
 

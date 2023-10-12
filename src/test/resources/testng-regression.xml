@@ -8,7 +8,8 @@
             <class name="com.training.testcases.Companies.VerifyBoundaryValue"/>
             <class name="com.training.testcases.Companies.VerifyMandatoryFields"/>
             <class name="com.training.testcases.Companies.VerifyDeleteOperation"/>
-
+            <class name="com.training.testcases.Companies.VerifyEditCompanyName"/>
+            <class name="com.training.testcases.Companies.VerifyEditCompany"/>
         </classes>
     </test>
 </suite>

@@ -23,11 +23,11 @@ public class CompanyPage extends BasePage {
 
 
     public void navigateToCompany() {
-        selectEntity(EntityPanel.Companies.toString());
+        selectEntity("Companies");
     }
+
     public CompanyPage clickOnCreateButton() {
         createButton();
-        scriptAction.waitUntilElementIsVisible(txtName,ApplicationConstants.MEDIUM_TIMEOUT,"Create Company page is not displayed");
         return this;
     }
 
@@ -84,23 +84,34 @@ public class CompanyPage extends BasePage {
         clickOnSaveButton();
         return this;
     }
-
+//    public CompanyPage companyBoundary(){
+//        createCompany();
+//        scriptActio.
+//        errorMessagesBoundary(ApplicationConstants.errorMessageForLengthCompanies);
+//    }
 
     public CompanyPage clickOnSaveButton() throws InterruptedException {
         saveButton();
+        //scriptAction.waitUntilElementIsVisible( , ApplicationConstants.MEDIUM_TIMEOUT);
         return this;
     }
 
-    public void deleteCompany(String sCompanyName) throws Exception {
+    /*public void deleteCompany(String sCompanyName) throws Exception {
         deleteRecord(sCompanyName,"Delete");
 
-    }
+    }*/
     public CompanyPage editcompany(HashMap<String,String>objCompanyData,String sCompanyName) throws Exception{
         performTableOperation(sCompanyName,"edit");
         scriptAction.waitTillClickableAndClick(By.id("Source"), ApplicationConstants.MEDIUM_TIMEOUT);
         enterCompanyDetails(objCompanyData);
         clickOnSaveButton();
         return this;
-
+    }
+    public CompanyPage deletecompany(HashMap<String, String> data) throws Exception{
+        navigateToCompany();
+        performTableOperation(data.get("name"), "delete");
+        //deleteRecord(delrec,"Delete");
+        checkRecordNotDisplayed("sCompanydata");
+        return this;
     }
 }
