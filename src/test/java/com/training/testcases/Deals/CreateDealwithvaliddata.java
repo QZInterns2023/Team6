@@ -18,45 +18,50 @@ public class CreateDealwithvaliddata extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.loginToApplication(configurationDetails.getUserName(), configurationDetails.getPassword());
         loginPage.selectEntity(BasePage.EntityPanel.Deals.toString());
-        ExtentTestManager.getTest().pass("Logged in to application");
+        ExtentTestManager.getTest().pass("Created deal with Valid Data");
         BasePage.EntityPanel.Deals.toString();
         loginPage.selectEntity(BasePage.EntityPanel.Deals.toString());
 
         // loginPage.checkPageHeader("Deals");
 
         DealsPage dealsPage = new DealsPage(getDriver());
-        dealsPage.clickonCreate();
+       // dealsPage.clickonCreate();
         ExtentTestManager.getTest().pass("Create a Deal");
         HashMap<String, String> deals = new HashMap<String, String>();
-//        String s = CommonUtil.getRandomString("Training", 14);
-        deals.put("Title",randomStringGenerator(10) );
+      //String s = CommonUtil.getRandomString("Training", 14);
+        deals.put("Title","NewDeal" );
         deals.put("Assigned To", "werwer werwer");
-        deals.put("Company", "qualizeal");
-        deals.put("Contacts", "niru katroth");
+        deals.put("Company", "QualiZeal");
+        deals.put("Contacts", "Bharat Bharath");
         deals.put("Close Date", "9/28/2023");
-       deals.put("Tags", "Its service1");
-        deals.put("Description", "qualizeal is provide more quality");
+       deals.put("Tags","Its service");
+        deals.put("Description", "Its sample deal case");
         deals.put("Probability", "80%");
         deals.put("Amount", "20000");
         deals.put("Commission", "2000");
         deals.put("Stage", "Prospect");
         deals.put("Status", "Active");
-        dealsPage.enterDetails(deals);
-        ExtentTestManager.getTest().pass("Created a deal successfully");
+        dealsPage.createDeals(deals);
+
+        Thread.sleep(5000);
+        dealsPage.clickOnSaveButton();
+//        dealsPage.refreshingPage();
+//        dealsPage.clickOnSaveButton();
+      //  ExtentTestManager.getTest().pass("Created a deal successfully");
 
 
-        dealsPage.saveDetails();
-        // dealsPage.homePage();
-      // dealsPage.verify();
-//        dealsPage.deleteRecord(deals);
-
+//        dealsPage.saveDetails();
+//        // dealsPage.homePage();
+//       dealsPage.verify();
+////        dealsPage.deleteRecord(deals);
+//   // dealsPage.deletearecord();
 
     }
-    public String randomStringGenerator(int num){
-        return RandomStringUtils.randomAlphabetic(num);
-    }
-    public String randomIntGenerator(int num){
-        return RandomStringUtils.randomAlphanumeric(num);
-    }
+//    public String randomStringGenerator(int num){
+//        return RandomStringUtils.randomAlphabetic(num);
+//    }
+//    public String randomIntGenerator(int num){
+//        return RandomStringUtils.randomAlphanumeric(num);
+//    }
 
 }

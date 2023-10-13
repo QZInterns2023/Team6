@@ -12,20 +12,20 @@ import org.testng.annotations.Test;
 
 import java.util.HashMap;
 @Test
-public class Verifydealspagewithoutname extends BaseTest {
+public class VerifydealspagewithoutMandatoryfields extends BaseTest {
     private static final By xpatherrormsg = By.xpath("class='inline-error-msg')");
-        public void deal() throws Exception {
+        public void verifydeal() throws Exception {
             LoginPage loginPage = new LoginPage(getDriver());
             loginPage.loginToApplication(configurationDetails.getUserName(), configurationDetails.getPassword());
             loginPage.selectEntity(BasePage.EntityPanel.Deals.toString());
-            ExtentTestManager.getTest().pass("Logged in to application");
+            ExtentTestManager.getTest().pass("Verify without mandatory fields");
             BasePage.EntityPanel.Deals.toString();
             loginPage.selectEntity(BasePage.EntityPanel.Deals.toString());
 
             // loginPage.checkPageHeader("Deals");
 
             DealsPage dealsPage = new DealsPage(getDriver());
-            dealsPage.clickonCreate();
+           dealsPage.clickonCreateButton();
             ExtentTestManager.getTest().pass("Create a Deal");
             HashMap<String, String> deals = new HashMap<String, String>();
 //        String s = CommonUtil.getRandomString("Training", 14);
@@ -41,10 +41,11 @@ public class Verifydealspagewithoutname extends BaseTest {
             deals.put("Commission", "2000");
             deals.put("Stage", "Prospect");
             deals.put("Status", "Active");
-            dealsPage.enterDetails(deals);
+            dealsPage.enterDealsDetails(deals);
             ExtentTestManager.getTest().pass("Created a deal successfully");
-            dealsPage.saveDetails();
+            dealsPage.clickOnSaveButton();
             dealsPage.errorMessage(ApplicationConstants.ErrorMessageForMandatoryFieldTitle);
+//            dealsPage.delete();
 
           //  dealsPage.verify();
 

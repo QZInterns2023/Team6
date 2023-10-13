@@ -1,3 +1,4 @@
+
 package com.training.pages;
 
 import com.training.constants.ApplicationConstants;
@@ -31,6 +32,8 @@ public class BasePage {
     String accessDropDown = "//div[@class='ui fluid multiple selection dropdown']";
     String saveBtn = "//button[text()='Save']";
 
+    String viewFieldValue = "//div[@class='ui label' and text()='%s']/parent::div";
+
     //Left Pane or Page Navigation Method
     private String lnkLeftPaneEntityName = "//div[@id='main-nav']//span[text()='%s']";
 
@@ -51,7 +54,7 @@ public class BasePage {
     String searchValue = "//input[@name = 'value']";
     String searchButton = "//i[@class= 'search small icon']";
     //table actions//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='unhide icon']
-    String viewXpath = "";
+    String viewXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='unhide icon']";
     String editXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='edit icon']";
     String deleteXpath = "//a[text()='%s']/../following-sibling::td[@class='right aligned collapsing options-buttons-container']//i[@class='trash icon']";
 
@@ -289,7 +292,7 @@ public class BasePage {
                 if (action==false){
                     scriptAction.clickElement(By.xpath(privateButton));
                 }
-            break;
+                break;
             case "private":
 
                 //click on public and make it private
@@ -299,14 +302,14 @@ public class BasePage {
                 if (accessNames.length() > 0){
                     String[] names = accessNames.split(",");
                     scriptAction.waitTillClickableAndClick(By.xpath(accessDropDown), ApplicationConstants.MEDIUM_TIMEOUT);
-                //getting elements from the dropdown and storing in list as web elements
-                //List<String> entity = new ArrayList<>(List.of(names));
-                for (String sEntity : names) {
-                    String updatedLoc = String.format(accessDropDownItems, sEntity);
-                    scriptAction.clickElement(By.xpath(updatedLoc));
-                    //check added or not
-                }
-                break;
+                    //getting elements from the dropdown and storing in list as web elements
+                    //List<String> entity = new ArrayList<>(List.of(names));
+                    for (String sEntity : names) {
+                        String updatedLoc = String.format(accessDropDownItems, sEntity);
+                        scriptAction.clickElement(By.xpath(updatedLoc));
+                        //check added or not
+                    }
+                    break;
                 }
         }
     }
@@ -335,7 +338,7 @@ public class BasePage {
     public void editRecordVerification(String labelName,String sValue) {
         String re = String.format(allDetailsVerification,labelName,sValue);
         System.out.println(re);
-       // scriptAction.waitUntilElementIsVisible(By.xpath(re),ApplicationConstants.MEDIUM_TIMEOUT);
+        // scriptAction.waitUntilElementIsVisible(By.xpath(re),ApplicationConstants.MEDIUM_TIMEOUT);
     }
 
     //Set Filters Method
@@ -385,7 +388,21 @@ public class BasePage {
         //Click on searchButton
         scriptAction.clickElement(By.xpath(searchButton));
     }
+
+    public String getFieldValueFromView(String sFieldLabelName){
+        String spanFieldValue =String.format(viewFieldValue,sFieldLabelName);
+        scriptAction.waitUntilElementIsVisible(By.xpath(spanFieldValue),ApplicationConstants.MEDIUM_TIMEOUT);
+        String sValue = scriptAction.getText(By.xpath(spanFieldValue));
+        System.out.println(sValue);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return sValue;
+    }
 }
 
 
 
+ 

@@ -4,7 +4,11 @@
     <test name="Regression tests">
         <classes>
             <!-- <class name="com.technomile.grc.testcases.RegressionTests"/> -->
-            <class name="com.training.testcases.TC01_ClausesFlowDown"/>
+            <class name="com.training.testcases.Deals.CreateDealwithvaliddata"></class>
+            <class name="com.training.testcases.Deals.VerifyBoundaryvalues"></class>
+            <class name="com.training.testcases.Deals.VerifyDeleteaDeal"></class>
+            <class name="com.training.testcases.Deals.VerifydealspagewithoutMandatoryfields"></class>
+            <class name="com.training.testcases.Deals.Verifymandatoryfields"></class>       
         </classes>
     </test>
 </suite>
