@@ -99,7 +99,8 @@ public class DealsPage extends BasePage {
         navigateToDeal();
         //deleteRecord(sDealName,"Delete");
         performTableOperation(data.get("Title"), "delete");
-        checkRecordDisplayed("sDealData");
+        performActionsOnPopUp("Delete");
+        checkRecordNotDisplayed("sDealData");
     }
 
     public DealsPage editDeal(HashMap<String,String>objDealsData,String sCompanyName) throws Exception{
